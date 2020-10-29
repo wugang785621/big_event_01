@@ -13,4 +13,17 @@ $.ajaxPrefilter(function(options) {
             Authorization: localStorage.getItem('token') || ''
         }
     }
+
+    // 登录拦截
+    options.complete = function(res) {
+        console.log(res.responseJSON);
+        var obj = res.responseJSON
+        if (obj.status == 1 && obj.message == '身份认证失败！') {
+            // 清空本地token
+            localStorage.removeItem('token')
+
+            // 页面跳转
+            location.href = '/login.html'
+        }
+    }
 })

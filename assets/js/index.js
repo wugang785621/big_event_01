@@ -1,6 +1,16 @@
 $(function() {
     // 1.获取用户信息,渲染头像和用户名
     getUserInfo()
+
+    // 2.退出
+    $('#btnLogout').on('click', function() {
+        layer.confirm('是否确认退出?', { icon: 3, title: '提示' }, function(index) {
+            //do something
+            localStorage.removeItem('token')
+            location.href = '/login.html'
+            layer.close(index);
+        });
+    })
 });
 
 // 获取用户信息必须封装成全局函数(写到入口函数之外)
